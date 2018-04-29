@@ -1,0 +1,63 @@
+div.row {
+	max-height: 80%; 
+	white-space: nowrap; 
+	overflow-y: scroll;
+}
+
+#paragraphs div {
+	overflow-y: scroll;
+	position: relative;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+#header div.row {
+	text-align: center;
+	padding-top: 10% !important;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
+.badge-secondary {
+    color: #212529 !important;
+    background-color: #ffc107 !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    border-radius: 0 !important;
+}
+
+.reset {
+    color: #6c757d !important;
+    background-color: #fff !important;
+    border-color: #6c757d !important;
+    border-radius: 0 !important;
+}
+
+#step2 div {
+	white-space: nowrap;
+	overflow-y: scroll;
+	max-height: 50%;"
+}

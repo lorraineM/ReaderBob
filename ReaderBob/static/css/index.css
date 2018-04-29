@@ -1,0 +1,10 @@
+div.row {
+	max-height: 80%; 
+	white-space: nowrap; 
+	overflow-y: scroll;
+}
+
+#paragraphs div {
+	max-height: 100%; 
+	overflow-y: scroll;
+}

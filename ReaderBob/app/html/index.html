@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row" id="header">
+		<div class="col-sm-12 col-md-12">
+			<div class="row">
+				<div class="col-sm-2 col-md-2"></div>
+				<div class="col-sm-5 col-md-5" style="text-align: left;">
+					<h1>ReaderBob<span class="badge badge-secondary">NLP</span></h1>
+					<p class="lead">Read a document and answer corresponding questions.</p>
+				</div>
+				<div class="col-sm-3 col-md-3">
+					{% load static %}
+					<img src="{% static 'img/robot.png' %}">
+				</div>
+				<div class="col-sm-2 col-md-2"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2 col-md-2">
+		</div>
+		<div class="col-sm-8 col-md-8">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-secondary" id="split">Split</button>
+  						<button type="button" class="btn btn-secondary reset" id="reset">Reset</button>
+					</div>
+				</div>
+			</div>
+			<form>
+				<div class="form-group">
+					<textarea id="inputdoc" class="form-control" id="document" rows="10"></textarea>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-2 col-md-2">
+		</div>
+	</div>
+	<div class="row" id="step2">
+		<div class="col-sm-2 col-md-2">
+		</div>
+		<div class="col-sm-2 col-md-2" id="navbar">
+
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<div data-spy="scroll" data-target="#navbar" data-offset="0" id="paragraphs">
+			</div>
+		</div>
+		<div class="col-sm-2 col-md-2">
+		</div>
+	</div>
+</div>
+<script>
+	$('#split').click(function() {
+		if($('#inputdoc')[0].value === undefined || $('#inputdoc')[0].value === '') {
+			return;
+		}
+		let params = {}
+		params["data"] = $('#inputdoc')[0].value;
+		$.get('/splitDoc', params, function(result) {
+			if(result === undefined) {
+				return;
+			}
+			$('#navbar').empty();
+			$('#paragraphs').empty();
+			let paragraphs = result['paragraphs'];
+			let stringbuilder = "";
+			let stringfornav = "<nav class=\"navbar navbar-light bg-light\"><nav class=\"nav nav-pills flex-column\">";
+			for(let i = 0; i < paragraphs.length; i++) {
+				stringfornav += "<a class=\"nav-link\" href=\"#";
+				stringfornav += "p" + i;
+				stringfornav += "\">";
+				stringfornav += "paragraph " + i;
+				stringfornav += "</a>";
+				stringbuilder += "<form id=\"";
+				stringbuilder += "p" + i;
+				stringbuilder += "\"><div class=\"form-group\"><textarea readonly class=\"form-control\" rows=\"8\" style=\"overflow-y:hidden;\">";
+				stringbuilder += paragraphs[i];
+				stringbuilder += "</textarea></div></form>";
+			}
+			stringfornav += "</nav></nav>"
+			$('#navbar').append(stringfornav);
+			$('#paragraphs').append(stringbuilder);
+		});
+	});
+	$('#reset').click(function() {
+		$('#inputdoc')[0].value = '';
+		$('#navbar').empty();
+		$('#paragraphs').empty();
+	});
+</script>
+{% endblock %}
